@@ -1,0 +1,9 @@
+commit-msg:
+  commands:
+    commitlint:
+      run: ./gradlew :cli:run --args="{1}"
+
+pre-commit:
+  commands:
+    spotless:
+      run: ./gradlew spotlessCheck
