@@ -6,6 +6,7 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 
 - **core** — Parser, rules engine, linter, and formatter. Zero runtime dependencies.
 - **cli** — Command-line entrypoint for linting commit message files. Used by the `commit-msg` git hook.
+- **maven-plugin** — Maven plugin that lints commit messages during a build. Provides a `check` goal.
 
 ## Requirements
 
@@ -31,7 +32,30 @@ sdk env install
 | `./gradlew clean`                  | Delete all build outputs                                                                        |
 | `./gradlew :core:test`             | Run tests for `core` only                                                                       |
 
-## Usage
+## CLI
+
+Lint a commit message file from the command line:
+
+```sh
+./gradlew :cli:run --args=".git/COMMIT_EDITMSG"
+```
+
+Exits with code `0` if the message is valid, `1` otherwise.
+
+### Git Hook
+
+The CLI is designed to be used as a `commit-msg` git hook. With [Lefthook](https://github.com/evilmartians/lefthook):
+
+```yaml
+commit-msg:
+  commands:
+    commitlint:
+      run: ./gradlew :cli:run --args="{1}"
+```
+
+## Core Library
+
+Use the core module directly for programmatic access:
 
 ```java
 import com.tiltedwindmills.commitlint.core.config.DefaultConfig;
@@ -51,6 +75,73 @@ System.out.println(new Formatter().format(outcome));
 //
 // 0 error(s), 0 warning(s)
 ```
+
+## Maven Plugin
+
+Add the plugin to your `pom.xml`:
+
+```xml
+<plugin>
+  <groupId>com.tiltedwindmills.commitlint</groupId>
+  <artifactId>commitlint-maven-plugin</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <configuration>
+    <!-- All parameters are optional — defaults shown below -->
+    <commitMessageFile>${project.basedir}/.git/COMMIT_EDITMSG</commitMessageFile>
+    <failOnWarning>true</failOnWarning>
+    <defaultIgnores>true</defaultIgnores>
+  </configuration>
+</plugin>
+```
+
+Run the `check` goal:
+
+```sh
+mvn commitlint:check
+```
+
+### Per-Rule Configuration
+
+Override severity, condition, or value for any built-in rule via nested `<rules>` configuration. Omitted fields keep their defaults from `DefaultConfig.conventional()`.
+
+```xml
+<configuration>
+  <rules>
+    <header-max-length>
+      <severity>WARNING</severity>
+      <value>72</value>
+    </header-max-length>
+    <type-enum>
+      <value>feat,fix,docs,chore</value>
+    </type-enum>
+    <type-empty>
+      <severity>DISABLED</severity>
+    </type-empty>
+    <subject-case>
+      <condition>NEVER</condition>
+      <value>UPPER_CASE,PASCAL_CASE</value>
+    </subject-case>
+  </rules>
+</configuration>
+```
+
+Each rule element supports up to three child elements:
+
+|    Element    |             Values             |                   Description                    |
+|---------------|--------------------------------|--------------------------------------------------|
+| `<severity>`  | `DISABLED`, `WARNING`, `ERROR` | Override the rule's severity level               |
+| `<condition>` | `ALWAYS`, `NEVER`              | Override whether the rule is positive or negated |
+| `<value>`     | _(rule-dependent)_             | Override the rule's value (see table below)      |
+
+**Value formats by rule:**
+
+|         Rule         |                                                                  Value format                                                                   |         Example          |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| `header-max-length`  | Integer                                                                                                                                         | `72`                     |
+| `type-enum`          | Comma-separated strings                                                                                                                         | `feat,fix,docs,chore`    |
+| `subject-case`       | Comma-separated case types (`LOWER_CASE`, `UPPER_CASE`, `CAMEL_CASE`, `KEBAB_CASE`, `SNAKE_CASE`, `PASCAL_CASE`, `SENTENCE_CASE`, `START_CASE`) | `UPPER_CASE,PASCAL_CASE` |
+| `type-empty`         | _(ignored)_                                                                                                                                     | —                        |
+| `body-leading-blank` | _(ignored)_                                                                                                                                     | —                        |
 
 ## Built-in Rules
 
@@ -91,6 +182,9 @@ registry.register("subject-min-length", myRule, Integer.class);
 ## Project Structure
 
 ```
+cli/src/main/java/com/tiltedwindmills/commitlint/cli/
+└── Main.java        # CLI entrypoint
+
 core/src/main/java/com/tiltedwindmills/commitlint/core/
 ├── parser/          # Commit message parsing
 ├── rules/           # Rule interface, registry, and built-in rules
@@ -98,6 +192,9 @@ core/src/main/java/com/tiltedwindmills/commitlint/core/
 ├── config/          # Configuration loading
 ├── lint/            # Linter pipeline
 └── format/          # Output formatting
+
+maven-plugin/src/main/java/com/tiltedwindmills/commitlint/maven/
+└── CheckMojo.java   # Maven plugin goal
 ```
 
 ## License

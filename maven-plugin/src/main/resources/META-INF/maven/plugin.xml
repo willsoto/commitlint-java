@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <name>commitlint-maven-plugin</name>
+  <description>Lints commit messages against Conventional Commits format.</description>
+  <groupId>com.tiltedwindmills.commitlint</groupId>
+  <artifactId>commitlint-maven-plugin</artifactId>
+  <goalPrefix>commitlint</goalPrefix>
+  <isolatedRealm>false</isolatedRealm>
+  <inheritedByDefault>true</inheritedByDefault>
+  <mojos>
+    <mojo>
+      <goal>check</goal>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>false</requiresProject>
+      <requiresOnline>false</requiresOnline>
+      <aggregator>false</aggregator>
+      <requiresReports>false</requiresReports>
+      <implementation>com.tiltedwindmills.commitlint.maven.CheckMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>commitMessageFile</name>
+          <type>java.lang.String</type>
+          <required>true</required>
+          <editable>true</editable>
+          <description>Path to the commit message file to lint.</description>
+        </parameter>
+        <parameter>
+          <name>failOnWarning</name>
+          <type>boolean</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Whether to fail the build on warnings.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <commitMessageFile implementation="java.lang.String">${commitMessageFile}</commitMessageFile>
+        <failOnWarning implementation="boolean" default-value="false">${failOnWarning}</failOnWarning>
+      </configuration>
+    </mojo>
+  </mojos>
+</plugin>
