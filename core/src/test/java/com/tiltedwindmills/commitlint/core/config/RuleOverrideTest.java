@@ -1,4 +1,4 @@
-package com.tiltedwindmills.commitlint.maven;
+package com.tiltedwindmills.commitlint.core.config;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

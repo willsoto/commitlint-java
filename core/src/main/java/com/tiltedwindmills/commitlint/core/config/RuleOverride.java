@@ -1,8 +1,8 @@
-package com.tiltedwindmills.commitlint.maven;
+package com.tiltedwindmills.commitlint.core.config;
 
 import org.jspecify.annotations.Nullable;
 
-/** Mutable POJO for Maven XML binding of per-rule overrides. */
+/** Mutable POJO for per-rule overrides. */
 public final class RuleOverride {
 
   private @Nullable String severity;

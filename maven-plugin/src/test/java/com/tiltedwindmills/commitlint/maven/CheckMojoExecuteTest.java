@@ -1,5 +1,6 @@
 package com.tiltedwindmills.commitlint.maven;
 
+import com.tiltedwindmills.commitlint.core.config.RuleOverride;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;

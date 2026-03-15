@@ -1,18 +1,17 @@
-package com.tiltedwindmills.commitlint.maven;
+package com.tiltedwindmills.commitlint.core.config;
 
 import com.tiltedwindmills.commitlint.core.rules.CaseType;
 import com.tiltedwindmills.commitlint.core.rules.Condition;
 import com.tiltedwindmills.commitlint.core.rules.Severity;
 import java.util.List;
 import java.util.Map;
-import org.apache.maven.plugin.MojoFailureException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ConfigBuilderTest {
 
   @Test
-  void noOverridesReturnsConventionalDefaults() throws Exception {
+  void noOverridesReturnsConventionalDefaults() {
     final var config = ConfigBuilder.build(Map.of(), true);
 
     Assertions.assertEquals(5, config.rules().size());
@@ -20,7 +19,7 @@ class ConfigBuilderTest {
   }
 
   @Test
-  void overrideSeverityOnly() throws Exception {
+  void overrideSeverityOnly() {
     final var override = new RuleOverride();
     override.setSeverity("WARNING");
     final var config = ConfigBuilder.build(Map.of("header-max-length", override), true);
@@ -32,7 +31,7 @@ class ConfigBuilderTest {
   }
 
   @Test
-  void overrideConditionOnly() throws Exception {
+  void overrideConditionOnly() {
     final var override = new RuleOverride();
     override.setCondition("ALWAYS");
     final var config = ConfigBuilder.build(Map.of("type-empty", override), true);
@@ -43,7 +42,7 @@ class ConfigBuilderTest {
   }
 
   @Test
-  void overrideHeaderMaxLengthValue() throws Exception {
+  void overrideHeaderMaxLengthValue() {
     final var override = new RuleOverride();
     override.setValue("72");
     final var config = ConfigBuilder.build(Map.of("header-max-length", override), true);
@@ -53,7 +52,7 @@ class ConfigBuilderTest {
   }
 
   @Test
-  void overrideTypeEnumValue() throws Exception {
+  void overrideTypeEnumValue() {
     final var override = new RuleOverride();
     override.setValue("feat,fix,chore");
     final var config = ConfigBuilder.build(Map.of("type-enum", override), true);
@@ -63,7 +62,7 @@ class ConfigBuilderTest {
   }
 
   @Test
-  void overrideSubjectCaseValue() throws Exception {
+  void overrideSubjectCaseValue() {
     final var override = new RuleOverride();
     override.setValue("UPPER_CASE,KEBAB_CASE");
     final var config = ConfigBuilder.build(Map.of("subject-case", override), true);
@@ -74,7 +73,7 @@ class ConfigBuilderTest {
   }
 
   @Test
-  void disableRule() throws Exception {
+  void disableRule() {
     final var override = new RuleOverride();
     override.setSeverity("DISABLED");
     final var config = ConfigBuilder.build(Map.of("type-empty", override), true);
@@ -89,7 +88,7 @@ class ConfigBuilderTest {
 
     final var exception =
         Assertions.assertThrows(
-            MojoFailureException.class,
+            IllegalArgumentException.class,
             () -> ConfigBuilder.build(Map.of("unknown-rule", override), true));
 
     Assertions.assertTrue(exception.getMessage().contains("unknown-rule"));
@@ -102,7 +101,7 @@ class ConfigBuilderTest {
 
     final var exception =
         Assertions.assertThrows(
-            MojoFailureException.class,
+            IllegalArgumentException.class,
             () -> ConfigBuilder.build(Map.of("type-empty", override), true));
 
     Assertions.assertTrue(exception.getMessage().contains("CRITICAL"));
@@ -115,21 +114,21 @@ class ConfigBuilderTest {
 
     final var exception =
         Assertions.assertThrows(
-            MojoFailureException.class,
+            IllegalArgumentException.class,
             () -> ConfigBuilder.build(Map.of("type-empty", override), true));
 
     Assertions.assertTrue(exception.getMessage().contains("SOMETIMES"));
   }
 
   @Test
-  void defaultIgnoresFalseIsPassedThrough() throws Exception {
+  void defaultIgnoresFalseIsPassedThrough() {
     final var config = ConfigBuilder.build(Map.of(), false);
 
     Assertions.assertFalse(config.defaultIgnores());
   }
 
   @Test
-  void valueIgnoredForVoidRules() throws Exception {
+  void valueIgnoredForVoidRules() {
     final var override = new RuleOverride();
     override.setValue("anything");
     final var config = ConfigBuilder.build(Map.of("type-empty", override), true);
@@ -144,7 +143,7 @@ class ConfigBuilderTest {
 
     final var exception =
         Assertions.assertThrows(
-            MojoFailureException.class,
+            IllegalArgumentException.class,
             () -> ConfigBuilder.build(Map.of("header-max-length", override), true));
 
     Assertions.assertTrue(exception.getMessage().contains("not-a-number"));
@@ -157,14 +156,14 @@ class ConfigBuilderTest {
 
     final var exception =
         Assertions.assertThrows(
-            MojoFailureException.class,
+            IllegalArgumentException.class,
             () -> ConfigBuilder.build(Map.of("subject-case", override), true));
 
     Assertions.assertTrue(exception.getMessage().contains("INVALID_CASE"));
   }
 
   @Test
-  void multipleOverridesApplied() throws Exception {
+  void multipleOverridesApplied() {
     final var headerOverride = new RuleOverride();
     headerOverride.setValue("50");
     final var bodyOverride = new RuleOverride();

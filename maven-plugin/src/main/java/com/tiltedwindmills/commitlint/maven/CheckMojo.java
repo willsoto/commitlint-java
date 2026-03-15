@@ -1,6 +1,8 @@
 package com.tiltedwindmills.commitlint.maven;
 
 import com.tiltedwindmills.commitlint.core.config.CommitlintConfig;
+import com.tiltedwindmills.commitlint.core.config.ConfigBuilder;
+import com.tiltedwindmills.commitlint.core.config.RuleOverride;
 import com.tiltedwindmills.commitlint.core.format.Formatter;
 import com.tiltedwindmills.commitlint.core.lint.LintOutcome;
 import com.tiltedwindmills.commitlint.core.lint.Linter;
@@ -48,8 +50,12 @@ public final class CheckMojo extends AbstractMojo {
   }
 
   CommitlintConfig buildConfig() throws MojoFailureException {
-    final Map<String, RuleOverride> effectiveRules = rules != null ? rules : Map.of();
-    return ConfigBuilder.build(effectiveRules, defaultIgnores);
+    try {
+      final Map<String, RuleOverride> effectiveRules = rules != null ? rules : Map.of();
+      return ConfigBuilder.build(effectiveRules, defaultIgnores);
+    } catch (final IllegalArgumentException e) {
+      throw new MojoFailureException(e.getMessage(), e);
+    }
   }
 
   LintOutcome lint(final Path file, final CommitlintConfig config) throws MojoFailureException {

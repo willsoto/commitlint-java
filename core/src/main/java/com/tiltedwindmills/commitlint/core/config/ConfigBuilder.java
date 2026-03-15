@@ -1,7 +1,5 @@
-package com.tiltedwindmills.commitlint.maven;
+package com.tiltedwindmills.commitlint.core.config;
 
-import com.tiltedwindmills.commitlint.core.config.CommitlintConfig;
-import com.tiltedwindmills.commitlint.core.config.DefaultConfig;
 import com.tiltedwindmills.commitlint.core.rules.CaseType;
 import com.tiltedwindmills.commitlint.core.rules.Condition;
 import com.tiltedwindmills.commitlint.core.rules.RuleConfig;
@@ -11,17 +9,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.maven.plugin.MojoFailureException;
 
-final class ConfigBuilder {
+public final class ConfigBuilder {
 
   private static final Set<String> VOID_RULES = Set.of("type-empty", "body-leading-blank");
 
   private ConfigBuilder() {}
 
-  static CommitlintConfig build(
-      final Map<String, RuleOverride> overrides, final boolean defaultIgnores)
-      throws MojoFailureException {
+  public static CommitlintConfig build(
+      final Map<String, RuleOverride> overrides, final boolean defaultIgnores) {
     final CommitlintConfig base = DefaultConfig.conventional();
     final Map<String, RuleConfig<?>> rules = new LinkedHashMap<>(base.rules());
 
@@ -30,7 +26,7 @@ final class ConfigBuilder {
       final RuleOverride override = entry.getValue();
 
       if (!rules.containsKey(name)) {
-        throw new MojoFailureException("Unknown rule in configuration: " + name);
+        throw new IllegalArgumentException("Unknown rule in configuration: " + name);
       }
 
       final RuleConfig<?> existing = rules.get(name);
@@ -43,8 +39,7 @@ final class ConfigBuilder {
 
   @SuppressWarnings("unchecked")
   private static RuleConfig<?> applyOverride(
-      final String name, final RuleConfig<?> existing, final RuleOverride override)
-      throws MojoFailureException {
+      final String name, final RuleConfig<?> existing, final RuleOverride override) {
     final Severity severity =
         override.getSeverity() != null
             ? parseSeverity(override.getSeverity())
@@ -62,26 +57,25 @@ final class ConfigBuilder {
     return new RuleConfig<>(severity, condition, value);
   }
 
-  private static Severity parseSeverity(final String raw) throws MojoFailureException {
+  private static Severity parseSeverity(final String raw) {
     try {
       return Severity.valueOf(raw);
     } catch (final IllegalArgumentException e) {
-      throw new MojoFailureException(
+      throw new IllegalArgumentException(
           "Invalid severity: " + raw + ". Must be one of: DISABLED, WARNING, ERROR", e);
     }
   }
 
-  private static Condition parseCondition(final String raw) throws MojoFailureException {
+  private static Condition parseCondition(final String raw) {
     try {
       return Condition.valueOf(raw);
     } catch (final IllegalArgumentException e) {
-      throw new MojoFailureException(
+      throw new IllegalArgumentException(
           "Invalid condition: " + raw + ". Must be one of: ALWAYS, NEVER", e);
     }
   }
 
-  private static Object parseValue(final String ruleName, final String raw)
-      throws MojoFailureException {
+  private static Object parseValue(final String ruleName, final String raw) {
     return switch (ruleName) {
       case "header-max-length" -> parseInteger(raw);
       case "type-enum" -> parseStringList(raw);
@@ -90,11 +84,11 @@ final class ConfigBuilder {
     };
   }
 
-  private static Integer parseInteger(final String raw) throws MojoFailureException {
+  private static Integer parseInteger(final String raw) {
     try {
       return Integer.valueOf(raw.trim());
     } catch (final NumberFormatException e) {
-      throw new MojoFailureException("Invalid integer value: " + raw, e);
+      throw new IllegalArgumentException("Invalid integer value: " + raw, e);
     }
   }
 
@@ -102,11 +96,11 @@ final class ConfigBuilder {
     return Arrays.stream(raw.split(",")).map(String::trim).toList();
   }
 
-  private static List<CaseType> parseCaseTypeList(final String raw) throws MojoFailureException {
+  private static List<CaseType> parseCaseTypeList(final String raw) {
     try {
       return Arrays.stream(raw.split(",")).map(String::trim).map(CaseType::valueOf).toList();
     } catch (final IllegalArgumentException e) {
-      throw new MojoFailureException("Invalid case type in value: " + raw, e);
+      throw new IllegalArgumentException("Invalid case type in value: " + raw, e);
     }
   }
 }

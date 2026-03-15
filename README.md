@@ -7,6 +7,7 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 - **core** — Parser, rules engine, linter, and formatter. Zero runtime dependencies.
 - **cli** — Command-line entrypoint for linting commit message files. Used by the `commit-msg` git hook.
 - **maven-plugin** — Maven plugin that lints commit messages during a build. Provides a `check` goal.
+- **gradle-plugin** — Gradle plugin that lints commit messages during a build. Provides a `commitlintCheck` task.
 
 ## Installation
 
@@ -34,6 +35,14 @@ implementation("com.tilted-windmills.commitlint:commitlint-core:0.1.0")
   <artifactId>commitlint-maven-plugin</artifactId>
   <version>0.1.0</version>
 </plugin>
+```
+
+### Gradle Plugin
+
+```kotlin
+plugins {
+    id("com.tilted-windmills.commitlint") version "0.1.0"
+}
 ```
 
 ## Requirements
@@ -70,7 +79,7 @@ Lint a commit message file from the command line:
 
 Exits with code `0` if the message is valid, `1` otherwise.
 
-### Git Hook
+### Git Hook (CLI)
 
 The CLI is designed to be used as a `commit-msg` git hook. With [Lefthook](https://github.com/evilmartians/lefthook):
 
@@ -128,6 +137,17 @@ Run the `check` goal:
 mvn commitlint:check
 ```
 
+### Git Hook (Maven)
+
+Use the Maven plugin as a `commit-msg` git hook with [Lefthook](https://github.com/evilmartians/lefthook):
+
+```yaml
+commit-msg:
+  commands:
+    commitlint:
+      run: mvn commitlint:check
+```
+
 ### Per-Rule Configuration
 
 Override severity, condition, or value for any built-in rule via nested `<rules>` configuration. Omitted fields keep their defaults from `DefaultConfig.conventional()`.
@@ -170,6 +190,66 @@ Each rule element supports up to three child elements:
 | `subject-case`       | Comma-separated case types (`LOWER_CASE`, `UPPER_CASE`, `CAMEL_CASE`, `KEBAB_CASE`, `SNAKE_CASE`, `PASCAL_CASE`, `SENTENCE_CASE`, `START_CASE`) | `UPPER_CASE,PASCAL_CASE` |
 | `type-empty`         | _(ignored)_                                                                                                                                     | —                        |
 | `body-leading-blank` | _(ignored)_                                                                                                                                     | —                        |
+
+## Gradle Plugin
+
+Apply the plugin in your `build.gradle.kts`:
+
+```kotlin
+plugins {
+    id("com.tilted-windmills.commitlint") version "0.1.0"
+}
+```
+
+Run the `commitlintCheck` task:
+
+```sh
+./gradlew commitlintCheck
+```
+
+### Git Hook (Gradle)
+
+Use the Gradle plugin as a `commit-msg` git hook with [Lefthook](https://github.com/evilmartians/lefthook):
+
+```yaml
+commit-msg:
+  commands:
+    commitlint:
+      run: ./gradlew commitlintCheck
+```
+
+### Configuration
+
+All parameters are optional — defaults shown below:
+
+```kotlin
+commitlint {
+    commitMessageFile.set(file(".git/COMMIT_EDITMSG"))  // default
+    failOnWarning.set(true)                              // default
+    defaultIgnores.set(true)                             // default
+}
+```
+
+### Per-Rule Configuration
+
+Override severity, condition, or value for any built-in rule:
+
+```kotlin
+commitlint {
+    rules {
+        create("header-max-length") {
+            severity.set("WARNING")
+            value.set("72")
+        }
+        create("type-enum") {
+            value.set("feat,fix,docs,chore")
+        }
+        create("type-empty") {
+            severity.set("DISABLED")
+        }
+    }
+}
+```
 
 ## Built-in Rules
 
@@ -223,6 +303,12 @@ core/src/main/java/com/tiltedwindmills/commitlint/core/
 
 maven-plugin/src/main/java/com/tiltedwindmills/commitlint/maven/
 └── CheckMojo.java   # Maven plugin goal
+
+gradle-plugin/src/main/java/com/tiltedwindmills/commitlint/gradle/
+├── CommitlintPlugin.java      # Plugin entry point
+├── CommitlintExtension.java   # DSL extension
+├── CommitlintCheckTask.java   # Linting task
+└── RuleConfiguration.java     # Per-rule config type
 ```
 
 ## License

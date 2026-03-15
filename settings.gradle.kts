@@ -9,3 +9,4 @@ pluginManagement {
 include("core")
 include("cli")
 include("maven-plugin")
+include("gradle-plugin")
