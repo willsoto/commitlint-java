@@ -8,6 +8,34 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 - **cli** — Command-line entrypoint for linting commit message files. Used by the `commit-msg` git hook.
 - **maven-plugin** — Maven plugin that lints commit messages during a build. Provides a `check` goal.
 
+## Installation
+
+### Core Library (Maven)
+
+```xml
+<dependency>
+  <groupId>com.tilted-windmills.commitlint</groupId>
+  <artifactId>commitlint-core</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
+### Core Library (Gradle)
+
+```kotlin
+implementation("com.tilted-windmills.commitlint:commitlint-core:0.1.0")
+```
+
+### Maven Plugin
+
+```xml
+<plugin>
+  <groupId>com.tilted-windmills.commitlint</groupId>
+  <artifactId>commitlint-maven-plugin</artifactId>
+  <version>0.1.0</version>
+</plugin>
+```
+
 ## Requirements
 
 - Java 25+
@@ -82,9 +110,9 @@ Add the plugin to your `pom.xml`:
 
 ```xml
 <plugin>
-  <groupId>com.tiltedwindmills.commitlint</groupId>
+  <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-maven-plugin</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <configuration>
     <!-- All parameters are optional — defaults shown below -->
     <commitMessageFile>${project.basedir}/.git/COMMIT_EDITMSG</commitMessageFile>

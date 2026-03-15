@@ -4,12 +4,16 @@ import com.tiltedwindmills.commitlint.core.config.CommitlintConfig;
 import com.tiltedwindmills.commitlint.core.parser.CommitMessage;
 import com.tiltedwindmills.commitlint.core.parser.CommitParser;
 import com.tiltedwindmills.commitlint.core.rules.Condition;
+import com.tiltedwindmills.commitlint.core.rules.Rule;
 import com.tiltedwindmills.commitlint.core.rules.RuleConfig;
 import com.tiltedwindmills.commitlint.core.rules.RuleOutcome;
 import com.tiltedwindmills.commitlint.core.rules.RuleRegistry;
+import com.tiltedwindmills.commitlint.core.rules.RuleRegistry.RegisteredRule;
 import com.tiltedwindmills.commitlint.core.rules.Severity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public final class Linter {
@@ -37,7 +41,7 @@ public final class Linter {
     final List<LintRuleOutcome> errors = new ArrayList<>();
     final List<LintRuleOutcome> warnings = new ArrayList<>();
 
-    for (final var entry : config.rules().entrySet()) {
+    for (final Entry<String, RuleConfig<?>> entry : config.rules().entrySet()) {
       final String name = entry.getKey();
       final RuleConfig<?> ruleConfig = entry.getValue();
 
@@ -45,7 +49,7 @@ public final class Linter {
         continue;
       }
 
-      final var registeredOpt = registry.get(name);
+      final Optional<RegisteredRule<?>> registeredOpt = registry.get(name);
       if (registeredOpt.isEmpty()) {
         continue;
       }
@@ -71,7 +75,7 @@ public final class Linter {
       final RuleRegistry.RegisteredRule<?> registered,
       final CommitMessage message,
       final RuleConfig<?> config) {
-    final var rule = (com.tiltedwindmills.commitlint.core.rules.Rule<V>) registered.rule();
+    final Rule<V> rule = (com.tiltedwindmills.commitlint.core.rules.Rule<V>) registered.rule();
     final V value = (V) config.value();
     final Condition condition = config.condition();
     return rule.validate(message, condition, value);

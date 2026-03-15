@@ -1,6 +1,7 @@
 plugins {
   id("com.diffplug.spotless") version "7.0.4"
   id("net.ltgt.errorprone") version "5.1.0" apply false
+  id("com.vanniktech.maven.publish") apply false
 }
 
 repositories {
@@ -86,5 +87,57 @@ subprojects {
 
   tasks.named("check") {
     dependsOn(tasks.withType<JacocoCoverageVerification>())
+  }
+}
+
+configure(subprojects.filter { it.name in listOf("core", "maven-plugin") }) {
+  apply(plugin = "com.vanniktech.maven.publish")
+
+  extensions.configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
+    publishToMavenCentral(automaticRelease = true)
+    signAllPublications()
+
+    coordinates(
+      groupId = project.group.toString(),
+      artifactId = when (project.name) {
+        "core" -> "commitlint-core"
+        else -> "commitlint-${project.name}"
+      },
+      version = project.version.toString(),
+    )
+
+    pom {
+      name.set(
+        when (project.name) {
+          "core" -> "commitlint-core"
+          else -> "commitlint-${project.name}"
+        },
+      )
+      description.set("A Java port of commitlint — lint commit messages against the Conventional Commits format")
+      inceptionYear.set("2026")
+      url.set("https://github.com/willsoto/commitlint-java/")
+
+      licenses {
+        license {
+          name.set("The Apache License, Version 2.0")
+          url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+          distribution.set("repo")
+        }
+      }
+
+      developers {
+        developer {
+          id.set("willsoto")
+          name.set("Will Soto")
+          url.set("https://github.com/willsoto/")
+        }
+      }
+
+      scm {
+        url.set("https://github.com/willsoto/commitlint-java/")
+        connection.set("scm:git:git://github.com/willsoto/commitlint-java.git")
+        developerConnection.set("scm:git:ssh://git@github.com/willsoto/commitlint-java.git")
+      }
+    }
   }
 }
