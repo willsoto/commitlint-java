@@ -90,7 +90,7 @@ subprojects {
   }
 }
 
-configure(subprojects.filter { it.name in listOf("core", "maven-plugin", "gradle-plugin") }) {
+configure(subprojects.filter { it.name in listOf("core", "maven-plugin") }) {
   apply(plugin = "com.vanniktech.maven.publish")
 
   extensions.configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
