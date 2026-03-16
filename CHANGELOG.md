@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/willsoto/commitlint-java/compare/v1.0.0...v1.0.1) (2026-03-16)
+
+
+### Bug Fixes
+
+* **workflows:** use custom RELEASE_TOKEN ([a8913da](https://github.com/willsoto/commitlint-java/commit/a8913da17471fe239cd15a9dee50c30f79233dc1))
+
 ## 1.0.0 (2026-03-16)
 
 
