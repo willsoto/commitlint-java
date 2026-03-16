@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/willsoto/commitlint-java/compare/v1.0.1...v1.0.2) (2026-03-16)
+
+
+### Bug Fixes
+
+* **build:** remove gradle-plugin from maven release ([bec7006](https://github.com/willsoto/commitlint-java/commit/bec7006dd462ae4810bcf1ab9f5ec3637013e073))
+
 ## [1.0.1](https://github.com/willsoto/commitlint-java/compare/v1.0.0...v1.0.1) (2026-03-16)
 
 
