@@ -11,7 +11,7 @@ repositories {
 spotless {
   flexmark {
     target("**/*.md")
-    targetExclude("**/build/**")
+    targetExclude("**/build/**", "CHANGELOG.md")
     flexmark()
   }
   kotlinGradle {
