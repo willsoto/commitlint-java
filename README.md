@@ -19,7 +19,7 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 <dependency>
   <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-core</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.tilted-windmills.commitlint:commitlint-core:1.0.1")
+implementation("com.tilted-windmills.commitlint:commitlint-core:1.0.2-SNAPSHOT")
 ```
 
 <!-- x-release-please-end -->
@@ -43,7 +43,7 @@ implementation("com.tilted-windmills.commitlint:commitlint-core:1.0.1")
 <plugin>
   <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-maven-plugin</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
 </plugin>
 ```
 
@@ -55,7 +55,7 @@ implementation("com.tilted-windmills.commitlint:commitlint-core:1.0.1")
 
 ```kotlin
 plugins {
-    id("com.tilted-windmills.commitlint") version "1.0.1"
+    id("com.tilted-windmills.commitlint") version "1.0.2-SNAPSHOT"
 }
 ```
 
@@ -139,7 +139,7 @@ Add the plugin to your `pom.xml`:
 <plugin>
   <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-maven-plugin</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <configuration>
     <!-- All parameters are optional — defaults shown below -->
     <commitMessageFile>${project.basedir}/.git/COMMIT_EDITMSG</commitMessageFile>
@@ -219,7 +219,7 @@ Apply the plugin in your `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    id("com.tilted-windmills.commitlint") version "1.0.1"
+    id("com.tilted-windmills.commitlint") version "1.0.2-SNAPSHOT"
 }
 ```
 
