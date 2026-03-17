@@ -13,37 +13,53 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 
 ### Core Library (Maven)
 
+<!-- x-release-please-start-version -->
+
 ```xml
 <dependency>
   <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-core</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
+<!-- x-release-please-end -->
+
 ### Core Library (Gradle)
 
+<!-- x-release-please-start-version -->
+
 ```kotlin
-implementation("com.tilted-windmills.commitlint:commitlint-core:0.1.0")
+implementation("com.tilted-windmills.commitlint:commitlint-core:1.0.1")
 ```
 
+<!-- x-release-please-end -->
+
 ### Maven Plugin
+
+<!-- x-release-please-start-version -->
 
 ```xml
 <plugin>
   <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-maven-plugin</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.1</version>
 </plugin>
 ```
 
+<!-- x-release-please-end -->
+
 ### Gradle Plugin
+
+<!-- x-release-please-start-version -->
 
 ```kotlin
 plugins {
-    id("com.tilted-windmills.commitlint") version "0.1.0"
+    id("com.tilted-windmills.commitlint") version "1.0.1"
 }
 ```
+
+<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -117,11 +133,13 @@ System.out.println(new Formatter().format(outcome));
 
 Add the plugin to your `pom.xml`:
 
+<!-- x-release-please-start-version -->
+
 ```xml
 <plugin>
   <groupId>com.tilted-windmills.commitlint</groupId>
   <artifactId>commitlint-maven-plugin</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.1</version>
   <configuration>
     <!-- All parameters are optional — defaults shown below -->
     <commitMessageFile>${project.basedir}/.git/COMMIT_EDITMSG</commitMessageFile>
@@ -130,6 +148,8 @@ Add the plugin to your `pom.xml`:
   </configuration>
 </plugin>
 ```
+
+<!-- x-release-please-end -->
 
 Run the `check` goal:
 
@@ -195,11 +215,15 @@ Each rule element supports up to three child elements:
 
 Apply the plugin in your `build.gradle.kts`:
 
+<!-- x-release-please-start-version -->
+
 ```kotlin
 plugins {
-    id("com.tilted-windmills.commitlint") version "0.1.0"
+    id("com.tilted-windmills.commitlint") version "1.0.1"
 }
 ```
+
+<!-- x-release-please-end -->
 
 Run the `commitlintCheck` task:
 
