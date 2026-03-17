@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/willsoto/commitlint-java/compare/v1.0.0...v1.0.1) (2026-03-17)
+
+
+### Bug Fixes
+
+* **gradle:** use block comment for version ([c67abda](https://github.com/willsoto/commitlint-java/commit/c67abda35b76aa7a04f8bc06154320459521ccb2))
+
 ## 1.0.0 (2026-03-16)
 
 
