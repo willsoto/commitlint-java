@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/willsoto/commitlint-java/compare/v1.0.1...v1.0.2) (2026-03-17)
+
+
+### Documentation
+
+* ensure README versions are updated via release-please ([e53ea9d](https://github.com/willsoto/commitlint-java/commit/e53ea9d748a9ee8bdd35369319b36eaa3e96fa67))
+
 ## [1.0.1](https://github.com/willsoto/commitlint-java/compare/v1.0.0...v1.0.1) (2026-03-17)
 
 
