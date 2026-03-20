@@ -1,5 +1,5 @@
 plugins {
-  id("com.diffplug.spotless") version "7.0.4"
+  id("com.diffplug.spotless") version "7.2.1"
   id("net.ltgt.errorprone") version "5.1.0" apply false
   id("com.vanniktech.maven.publish") apply false
 }
@@ -42,10 +42,10 @@ subprojects {
   }
 
   dependencies {
-    "testImplementation"(platform("org.junit:junit-bom:5.12.1"))
+    "testImplementation"(platform("org.junit:junit-bom:5.14.3"))
     "testImplementation"("org.junit.jupiter:junit-jupiter")
     "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
-    "implementation"("com.google.guava:guava:33.4.0-jre")
+    "implementation"("com.google.guava:guava:33.5.0-jre")
     "implementation"("org.jspecify:jspecify:1.0.0")
     "errorprone"("com.google.errorprone:error_prone_core:2.48.0")
   }
