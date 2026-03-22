@@ -1,6 +1,5 @@
 package com.tiltedwindmills.commitlint.core.rules.builtin;
 
-import com.tiltedwindmills.commitlint.core.ensure.Ensure;
 import com.tiltedwindmills.commitlint.core.parser.CommitMessage;
 import com.tiltedwindmills.commitlint.core.rules.Condition;
 import com.tiltedwindmills.commitlint.core.rules.Rule;
