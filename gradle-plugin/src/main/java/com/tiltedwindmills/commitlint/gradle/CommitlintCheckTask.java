@@ -24,23 +24,52 @@ import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.work.DisableCachingByDefault;
 
-/** Task that lints a commit message file against Conventional Commits rules. */
+/**
+ * Gradle task that lints a commit message file against Conventional Commits rules.
+ *
+ * <p>This task is registered as {@code commitlintCheck} by {@link CommitlintPlugin} and is
+ * configured via the {@link CommitlintExtension} DSL.
+ */
 @DisableCachingByDefault(because = "Commit message changes on every commit")
 public abstract class CommitlintCheckTask extends DefaultTask {
 
+  /**
+   * The commit message file to lint.
+   *
+   * @return the commit message file property
+   */
   @InputFile
   @PathSensitive(PathSensitivity.NONE)
   public abstract RegularFileProperty getCommitMessageFile();
 
+  /**
+   * Whether to fail the build on warnings.
+   *
+   * @return the fail-on-warning property
+   */
   @Input
   public abstract Property<Boolean> getFailOnWarning();
 
+  /**
+   * Whether to enable default ignores for merge, revert, and amend commits.
+   *
+   * @return the default-ignores property
+   */
   @Input
   public abstract Property<Boolean> getDefaultIgnores();
 
+  /**
+   * The serialized rule overrides, keyed by rule name.
+   *
+   * @return the rule overrides map property
+   */
   @Input
   public abstract MapProperty<String, Map<String, String>> getRuleOverrides();
 
+  /**
+   * Lints the commit message file and throws a {@link GradleException} if linting fails or if
+   * warnings are present and {@link #getFailOnWarning()} is {@code true}.
+   */
   @TaskAction
   public void check() {
     final Path file = getCommitMessageFile().get().getAsFile().toPath();

@@ -3,9 +3,21 @@ package com.tiltedwindmills.commitlint.core.format;
 import com.tiltedwindmills.commitlint.core.lint.LintOutcome;
 import com.tiltedwindmills.commitlint.core.lint.LintRuleOutcome;
 
+/**
+ * Formats a {@link LintOutcome} into a human-readable string suitable for console output.
+ *
+ * <p>The output includes a pass/fail marker, the input message, individual error and warning
+ * details, and a summary count.
+ */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
 public final class Formatter {
 
+  /**
+   * Formats the given lint outcome as a human-readable report.
+   *
+   * @param outcome the lint outcome to format
+   * @return the formatted report string
+   */
   public String format(final LintOutcome outcome) {
     final StringBuilder sb = new StringBuilder();
 

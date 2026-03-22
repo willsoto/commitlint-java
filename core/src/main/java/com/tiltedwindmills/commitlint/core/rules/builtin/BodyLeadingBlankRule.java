@@ -6,6 +6,12 @@ import com.tiltedwindmills.commitlint.core.rules.Rule;
 import com.tiltedwindmills.commitlint.core.rules.RuleOutcome;
 import org.jspecify.annotations.Nullable;
 
+/**
+ * Rule that checks whether the commit body is preceded by a blank line.
+ *
+ * <p>Per the Conventional Commits spec, the body should be separated from the header by an empty
+ * line.
+ */
 public final class BodyLeadingBlankRule implements Rule<Void> {
 
   @Override

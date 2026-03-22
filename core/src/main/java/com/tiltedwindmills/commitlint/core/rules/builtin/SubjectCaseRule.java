@@ -7,6 +7,11 @@ import com.tiltedwindmills.commitlint.core.rules.Rule;
 import com.tiltedwindmills.commitlint.core.rules.RuleOutcome;
 import java.util.List;
 
+/**
+ * Rule that checks whether the commit subject matches one of the specified {@link CaseType}s.
+ *
+ * <p>The value parameter is the list of case types to check against.
+ */
 public final class SubjectCaseRule implements Rule<List<CaseType>> {
 
   @Override

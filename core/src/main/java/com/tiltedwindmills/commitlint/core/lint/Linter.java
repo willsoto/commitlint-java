@@ -16,14 +16,35 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+/**
+ * The main entry point for linting commit messages.
+ *
+ * <p>Parses a raw commit message string and evaluates it against the configured rules, producing a
+ * {@link LintOutcome} that details any errors or warnings.
+ */
 public final class Linter {
 
   private final RuleRegistry registry;
 
+  /**
+   * Creates a linter backed by the given rule registry.
+   *
+   * @param registry the registry of available rules
+   */
   public Linter(final RuleRegistry registry) {
     this.registry = registry;
   }
 
+  /**
+   * Lints a raw commit message against the given configuration.
+   *
+   * <p>Messages matching the default ignores (merge, revert, amend) or any custom ignore predicates
+   * are automatically considered valid.
+   *
+   * @param raw the raw commit message string
+   * @param config the lint configuration specifying which rules to apply
+   * @return the lint outcome
+   */
   public LintOutcome lint(final String raw, final CommitlintConfig config) {
     if (config.defaultIgnores() && isDefaultIgnored(raw)) {
       return new LintOutcome(raw, true, List.of(), List.of());

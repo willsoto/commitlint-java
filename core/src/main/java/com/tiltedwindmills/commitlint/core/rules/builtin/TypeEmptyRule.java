@@ -6,6 +6,11 @@ import com.tiltedwindmills.commitlint.core.rules.Rule;
 import com.tiltedwindmills.commitlint.core.rules.RuleOutcome;
 import org.jspecify.annotations.Nullable;
 
+/**
+ * Rule that checks whether the commit type is empty.
+ *
+ * <p>Typically used with {@link Condition#NEVER} to require that a type is present.
+ */
 public final class TypeEmptyRule implements Rule<Void> {
 
   @Override

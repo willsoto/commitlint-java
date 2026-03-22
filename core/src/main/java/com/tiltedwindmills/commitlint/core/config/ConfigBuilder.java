@@ -10,12 +10,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Builds a {@link CommitlintConfig} by applying user-supplied overrides on top of the {@linkplain
+ * DefaultConfig#conventional() default conventional configuration}.
+ */
 public final class ConfigBuilder {
 
   private static final Set<String> VOID_RULES = Set.of("type-empty", "body-leading-blank");
 
   private ConfigBuilder() {}
 
+  /**
+   * Builds a configuration by merging the given overrides into the default conventional config.
+   *
+   * @param overrides per-rule overrides keyed by rule name
+   * @param defaultIgnores whether to enable default ignores for merge/revert/amend commits
+   * @return the merged configuration
+   * @throws IllegalArgumentException if an override references an unknown rule name, or if an
+   *     override contains an invalid severity, condition, or value
+   */
   public static CommitlintConfig build(
       final Map<String, RuleOverride> overrides, final boolean defaultIgnores) {
     final CommitlintConfig base = DefaultConfig.conventional();
@@ -29,15 +42,13 @@ public final class ConfigBuilder {
         throw new IllegalArgumentException("Unknown rule in configuration: " + name);
       }
 
-      final RuleConfig<?> existing = rules.get(name);
-      rules.put(name, applyOverride(name, existing, override));
+      rules.compute(name, (k, existing) -> applyOverride(name, existing, override));
     }
 
     return new CommitlintConfig(
         Map.copyOf(rules), base.parserOptions(), base.ignores(), defaultIgnores);
   }
 
-  @SuppressWarnings("unchecked")
   private static RuleConfig<?> applyOverride(
       final String name, final RuleConfig<?> existing, final RuleOverride override) {
     final Severity severity =
