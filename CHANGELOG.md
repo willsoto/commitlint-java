@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.3](https://github.com/willsoto/commitlint-java/compare/v1.0.2...v1.0.3) (2026-03-22)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([9ba46d8](https://github.com/willsoto/commitlint-java/commit/9ba46d8059ece10fca9b6003745f3ff9a4596517))
+* **deps:** update dependency org.junit:junit-bom to v6 ([94b551c](https://github.com/willsoto/commitlint-java/commit/94b551cbf3aab7b282cef245621cf667e91f5bda))
+
+
+### Documentation
+
+* document all public API surface ([2bad3d1](https://github.com/willsoto/commitlint-java/commit/2bad3d1aa2ded1230cd3537e542fa0a575315ade))
+* **README:** update core to remove zero runtime deps claim ([0d161a9](https://github.com/willsoto/commitlint-java/commit/0d161a93c68ee5c13ce322242a5f03ae2a45d4f2))
+
 ## [1.0.2](https://github.com/willsoto/commitlint-java/compare/v1.0.1...v1.0.2) (2026-03-17)
 
 
