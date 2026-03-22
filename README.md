@@ -4,7 +4,7 @@ A Java port of [commitlint](https://commitlint.js.org/) — lint commit messages
 
 ## Modules
 
-- **core** — Parser, rules engine, linter, and formatter. Zero runtime dependencies.
+- **core** — Parser, rules engine, linter, and formatter.
 - **cli** — Command-line entrypoint for linting commit message files. Used by the `commit-msg` git hook.
 - **maven-plugin** — Maven plugin that lints commit messages during a build. Provides a `check` goal.
 - **gradle-plugin** — Gradle plugin that lints commit messages during a build. Provides a `commitlintCheck` task.
