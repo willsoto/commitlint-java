@@ -5,6 +5,11 @@ import com.tiltedwindmills.commitlint.core.rules.Condition;
 import com.tiltedwindmills.commitlint.core.rules.Rule;
 import com.tiltedwindmills.commitlint.core.rules.RuleOutcome;
 
+/**
+ * Rule that enforces a maximum length on the commit header.
+ *
+ * <p>The value parameter specifies the maximum allowed number of characters.
+ */
 public final class HeaderMaxLengthRule implements Rule<Integer> {
 
   @Override

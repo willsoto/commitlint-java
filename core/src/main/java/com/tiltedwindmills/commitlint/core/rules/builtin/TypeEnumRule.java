@@ -6,6 +6,11 @@ import com.tiltedwindmills.commitlint.core.rules.Rule;
 import com.tiltedwindmills.commitlint.core.rules.RuleOutcome;
 import java.util.List;
 
+/**
+ * Rule that checks whether the commit type is a member of an allowed set.
+ *
+ * <p>The value parameter is the list of allowed type strings (e.g. {@code feat}, {@code fix}).
+ */
 public final class TypeEnumRule implements Rule<List<String>> {
 
   @Override

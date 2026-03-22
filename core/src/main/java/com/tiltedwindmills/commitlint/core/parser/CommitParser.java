@@ -3,18 +3,36 @@ package com.tiltedwindmills.commitlint.core.parser;
 import java.util.Optional;
 import java.util.regex.Matcher;
 
+/**
+ * Parses raw commit message strings into structured {@link CommitMessage} instances.
+ *
+ * <p>The parser splits the raw message into header, body, and footer sections, then applies a regex
+ * pattern (from {@link ParserOptions}) to extract the type, scope, and subject from the header.
+ */
 public final class CommitParser {
 
   private final ParserOptions options;
 
+  /**
+   * Creates a parser with the given options.
+   *
+   * @param options the parser options controlling header pattern matching
+   */
   public CommitParser(final ParserOptions options) {
     this.options = options;
   }
 
+  /** Creates a parser with {@linkplain ParserOptions#defaults() default options}. */
   public CommitParser() {
     this(ParserOptions.defaults());
   }
 
+  /**
+   * Parses a raw commit message string into a {@link CommitMessage}.
+   *
+   * @param raw the raw commit message to parse
+   * @return the parsed commit message
+   */
   public CommitMessage parse(final String raw) {
     if (raw.isEmpty()) {
       return new CommitMessage(

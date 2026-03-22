@@ -6,7 +6,13 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.provider.Provider;
 
-/** Gradle plugin that provides a {@code commitlintCheck} task for linting commit messages. */
+/**
+ * Gradle plugin that registers a {@code commitlintCheck} task for linting commit messages against
+ * Conventional Commits rules.
+ *
+ * <p>Apply this plugin to your build and configure it via the {@code commitlint} extension. The
+ * plugin automatically wires the extension properties into the task inputs.
+ */
 public final class CommitlintPlugin implements Plugin<Project> {
 
   @Override

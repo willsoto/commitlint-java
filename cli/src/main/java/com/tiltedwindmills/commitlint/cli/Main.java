@@ -10,6 +10,12 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Command-line entrypoint for commitlint.
+ *
+ * <p>Reads a commit message from a file and lints it against the default Conventional Commits
+ * configuration. Exits with code {@code 0} on success or {@code 1} on lint failure.
+ */
 public final class Main {
 
   private Main() {}

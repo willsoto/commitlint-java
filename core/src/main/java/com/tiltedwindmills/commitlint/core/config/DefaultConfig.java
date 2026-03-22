@@ -8,10 +8,19 @@ import com.tiltedwindmills.commitlint.core.rules.Severity;
 import java.util.List;
 import java.util.Map;
 
+/** Provides the default Conventional Commits configuration. */
 public final class DefaultConfig {
 
   private DefaultConfig() {}
 
+  /**
+   * Returns the default configuration matching the {@code @commitlint/config-conventional} preset.
+   *
+   * <p>Includes rules for header max length (100), type-empty (never), type-enum (standard types),
+   * subject-case (no pascal/upper/start), and body-leading-blank (warning).
+   *
+   * @return the conventional commits configuration
+   */
   public static CommitlintConfig conventional() {
     return new CommitlintConfig(
         Map.of(

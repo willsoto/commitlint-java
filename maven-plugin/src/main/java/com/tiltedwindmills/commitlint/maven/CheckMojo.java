@@ -16,7 +16,15 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-/** Lints a commit message file against Conventional Commits rules. */
+/**
+ * Maven Mojo that lints a commit message file against Conventional Commits rules.
+ *
+ * <p>By default, reads the commit message from {@code .git/COMMIT_EDITMSG} in the project
+ * directory. Rule severity, condition, and value can be overridden via the {@code <rules>}
+ * configuration element.
+ *
+ * <p>Usage: {@code mvn commitlint:check}
+ */
 @Mojo(name = "check", requiresProject = false)
 public final class CheckMojo extends AbstractMojo {
 
