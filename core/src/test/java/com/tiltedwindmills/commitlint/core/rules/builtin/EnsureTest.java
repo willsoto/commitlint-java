@@ -1,4 +1,4 @@
-package com.tiltedwindmills.commitlint.core.ensure;
+package com.tiltedwindmills.commitlint.core.rules.builtin;
 
 import com.tiltedwindmills.commitlint.core.rules.CaseType;
 import java.util.List;
