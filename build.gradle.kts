@@ -47,7 +47,7 @@ subprojects {
     "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
     "implementation"("com.google.guava:guava:33.5.0-jre")
     "implementation"("org.jspecify:jspecify:1.0.0")
-    "errorprone"("com.google.errorprone:error_prone_core:2.48.0")
+    "errorprone"("com.google.errorprone:error_prone_core:2.49.0")
   }
 
   tasks.withType<Test> {
