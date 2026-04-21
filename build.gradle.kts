@@ -45,7 +45,7 @@ subprojects {
     "testImplementation"(platform("org.junit:junit-bom:6.0.3"))
     "testImplementation"("org.junit.jupiter:junit-jupiter")
     "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
-    "implementation"("com.google.guava:guava:33.5.0-jre")
+    "implementation"("com.google.guava:guava:33.6.0-jre")
     "implementation"("org.jspecify:jspecify:1.0.0")
     "errorprone"("com.google.errorprone:error_prone_core:2.49.0")
   }
