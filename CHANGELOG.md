@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.4](https://github.com/willsoto/commitlint-java/compare/v1.0.3...v1.0.4) (2026-06-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.errorprone:error_prone_core to v2.49.0 ([774b70e](https://github.com/willsoto/commitlint-java/commit/774b70e19caf926e745e6b3996afe7335b219b4a))
+* **deps:** update dependency com.google.guava:guava to v33.6.0-jre ([b20e534](https://github.com/willsoto/commitlint-java/commit/b20e534a2e42d7d43c6f5653b4d9bcced051e06f))
+* **deps:** update dependency org.apache.maven:maven-plugin-api to v3.9.15 ([2215d61](https://github.com/willsoto/commitlint-java/commit/2215d613c487bbc0480640a4498d95133d33c360))
+* **deps:** update dependency org.apache.maven:maven-plugin-api to v3.9.16 ([69485ce](https://github.com/willsoto/commitlint-java/commit/69485ce028b37740e83eb5243c08b4a74adc24c8))
+* **deps:** update dependency org.junit:junit-bom to v6.1.0 ([4965b72](https://github.com/willsoto/commitlint-java/commit/4965b72ab16adf62a2c362aa6d1687978a41c50d))
+
 ## [1.0.3](https://github.com/willsoto/commitlint-java/compare/v1.0.2...v1.0.3) (2026-03-22)
 
 
