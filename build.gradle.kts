@@ -1,5 +1,5 @@
 plugins {
-  id("com.diffplug.spotless") version "8.10.3"
+  id("com.diffplug.spotless") version "8.10.4"
   id("net.ltgt.errorprone") version "5.1.1" apply false
   id("com.vanniktech.maven.publish") apply false
 }
