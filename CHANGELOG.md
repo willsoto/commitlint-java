@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/willsoto/commitlint-java/compare/v1.0.4...v1.0.5) (2026-11-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.google.errorprone:error_prone_core to v2.52.0 ([2ab742a](https://github.com/willsoto/commitlint-java/commit/2ab742af994521bbb32de0b5e39376b906bdecf0))
+
 ## [1.0.4](https://github.com/willsoto/commitlint-java/compare/v1.0.3...v1.0.4) (2026-06-12)
 
 
